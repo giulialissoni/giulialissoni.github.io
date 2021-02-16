@@ -28,7 +28,7 @@
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>    <![endif]-->
   </head>
-  <body style="                               height: 514px;">
+  <body style="                                 height: 514px;">
     <!-- Header -->
     <header id="header">
       <div class="intro">
@@ -216,21 +216,18 @@
                   href="https://link.springer.com/article/10.1007/s00211-018-1014-y?wt_mc=Internal.Event.1.SEM.ArticleAuthorOnlineFirst&amp;utm_source=ArticleAuthorContributingOnlineFirst&amp;utm_medium=email&amp;utm_content=AA_en_06082018&amp;ArticleAuthorContributingOnlineFirst_20190107"><br>
                   Submitted</a>,</i></span><span style="font-family: Carlito; font-size: medium; "><i><span
                   style="color: #333333;"><span style="font-family: Carlito; font-size: medium; "><i><br>
-                      (2019)</i></span></span></i></span><b><span style="font-family: Carlito; color: black;"><br>
+                      (2019)</i></span></span></i></span><b><span style="font-family: Carlito; color: black;"></span></b></li>
+          <li><b><span style=" font-family: Carlito; color: black;"><br>
               </span></b></li>
-          <li><br>
-            <b><span style="font-family: Carlito; color: black;"></span></b></li>
-          <li><b><span style="font-family: Carlito; color: black;"><span style="font-family: Carlito; font-size: medium; "><a><b>3.</b></a></span>
-                "</span></b><a href="https://hal.archives-ouvertes.fr/hal-03080236"><span
-                style="font-family: Carlito; font-size: medium; "><a><b>Numerical
-                    analysis of DDFV schemes for semiconductors energy-transport
-                    models</b></a></span></a><span style="font-family: Carlito; font-size: medium; "><a
-                href="https://hal.archives-ouvertes.fr/hal-03080236"><b>”</b></a>,
-              <span style="color: #666666;">M. Bessemoulin-Chatard, G. Lissoni,
-                H. Mathis</span></span><span style="font-family: Carlito; font-size: medium; "><i><a><br>
-                  Submitted,</a></i></span><span style="font-family: Carlito; font-size: medium; "><i><span
-                  style="color: #333333;"><span style="font-family: Carlito; font-size: medium; "><i><br>
-                      (2020)</i></span></span></i></span></li>
+          <li><span style="font-family: Carlito; font-size: medium; "><a href="https://hal.archives-ouvertes.fr/hal-03080236"
+                target="_blank"><b>3. Numerical analysis of DDFV schemes for
+                  semiconductors energy-transport”</b> </a>, M.
+              Bessemoulin-Chatard, G. Lissoni, H. Mathis<br>
+              <i> <br>
+                <span style="color: black;"> Submitted,</span></i></span></li>
+          <li><span style="font-family: Carlito; font-size: medium; "><i><span style="color: black;">(2020)</span></i></span><span
+              style="font-family: Carlito; font-size: medium; "><a><b><br>
+                </b></a></span></li>
         </ul>
         <ul>
           <li>
