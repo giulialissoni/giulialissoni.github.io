@@ -265,11 +265,11 @@
           </ul>
         </blockquote>
         <h2 id="header-2">Talks</h2>
-        <p><b><span style="color: #333333;">Seminars</span>:</b></p>
+        <b><span style="color: #333333;">Seminars</span>:</b>
         <ul>
           <li>Séminaire d’équipe LHEEA, ECN (Nantes), 18 Février 2021 </li>
           <li>Séminaire d’équipe CFL, CEMEF (Sophia Antipolis), 21 Janvier 2021</li>
-          <li>Séminaire danalyse applique, LAMFA (Amiens), 18 Janvier 2021</li>
+          <li>Séminaire d'analyse applique, LAMFA (Amiens), 18 Janvier 2021</li>
           <li>GDR Manu (Lille), 15 Octobre 2020</li>
           <li>Séminaire d’Analyse Numérique, IRMAR (Rennes), 12 Décembre 2019</li>
           <li>Séminaire Équipe ACSIOM, Laboratoire IMAG (Montpellier), 5 Février
@@ -287,8 +287,7 @@
         <h3 id="header-3"></h3>
         <ul>
         </ul>
-        <p><br>
-          <b><span style="color: #333333;">Conferences:</span></b></p>
+        <b><span style="color: #333333;">Conferences:</span></b>
         <ul>
           <li>Journées des Jeunes EDPistes (Besancon), 23-26 Mars 2021 </li>
           <li>CANUM-J (online), 3-4 Dcembre 2020</li>
@@ -296,7 +295,7 @@
           <li>CANUM (Cap d’Agde), 29 Mai 2018</li>
           <li>Journées NTM (Porquerolles), 24 Mai 2018</li>
         </ul>
-        <p><b><span style="color: #333333;">Posters</span>:</b></p>
+        <b><span style="color: #333333;">Posters</span>:</b>
         <ul>
           <li>Finite Volumes for Complex Applications FVCA8 (Bergen), 15-19 Juin
             2020</li>
@@ -310,15 +309,14 @@
           <li>Finite Volumes for Complex Applications FVCA8 (Lille), 12-16 Juin
             2017</li>
         </ul>
-        <p><br>
-          <b><span style="color: #333333;">Other talks</span>:</b></p>
+        <b><span style="color: #333333;">Other talks</span>:</b>
         <ul>
           <li>Journée des thèses au LJAD (Nice), 12 Avril 2018</li>
           <li>Séminaire des doctorants au LJAD (Nice), 9 Octobre 2017</li>
           <li>Colloque des doctorants (Barcelonnette), 12-14 Mai 2017</li>
           <li>Journée des thèses au LJAD (Nice), 3 Mai 2017</li>
         </ul>
-        <p><b><span style="color: #333333;">Attended schools</span>:</b></p>
+        <b><span style="color: #333333;">Attended schools</span>:</b>
         <ul>
           <li>”Summer school on Domain Decomposition Methods” (Nice), 19-21 Juin
             2018</li>
@@ -346,6 +344,6 @@
           </small></p>
       </footer>
     </div>
-    <script src="./Minimal%20theme%20_%20Minimal%20is%20a%20theme%20for%20GitHub%20Pages_files/scale.fix.js"></script>
+    
   </body>
 </html>
