@@ -169,7 +169,7 @@
       <header>
         <h1><span style="color: #538ed4;">Giulia Lissoni</span><br>
         </h1>
-        <img src="img/about.jpg" alt="Logo" style="width: 283px; height: 347px;">
+        <img src="../img/about.jpg" alt="Logo" style="width: 283px; height: 347px;">
         <p>(Refuge Albert 1er, 2019).</p>
         <p class="view"><b><span style="color: #777777;">Welcome to my page!</span></b></p>
         <p class="view"><span style="color: #777777;"> (Last update: February
@@ -323,10 +323,11 @@
         </ul>
         <p><b><span style="color: #333333;">Attended schools</span>:</b></p>
         <ul>
-          <li>”Summer school on Domain Decomposition Methods” (Nice), 19-21 Juin
-            2018</li>
+          <li>”Summer school on Domain Decomposition Methods” (Nice),
+            19-21 Juin 2018</li>
           <li>”École de recherche en mathématiques pour l’énergie nuclaire”
-            (Roscoff), 2 - 6 Juillet 2018</li>
+            (Roscoff),
+            2 - 6 Juillet 2018</li>
           <li>CEMRACS 2018 (CIRM, Marseille),16 Juillet - 24 Août 2018</li>
           <li>”XXI Journées Louis Antoine” (Rennes), 28 -29 Novembre 2019</li>
         </ul>
