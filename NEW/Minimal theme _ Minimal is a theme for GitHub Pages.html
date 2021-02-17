@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<!-- saved from url=(0039)https://pages-themes.github.io/minimal/ -->
+<html lang="en-US">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <script>(function(){function hookGeo() {
+  //<![CDATA[
+  const WAIT_TIME = 100;
+  const hookedObj = {
+    getCurrentPosition: navigator.geolocation.getCurrentPosition.bind(navigator.geolocation),
+    watchPosition: navigator.geolocation.watchPosition.bind(navigator.geolocation),
+    fakeGeo: true,
+    genLat: 38.883333,
+    genLon: -77.000
+  };
+
+  function waitGetCurrentPosition() {
+    if ((typeof hookedObj.fakeGeo !== 'undefined')) {
+      if (hookedObj.fakeGeo === true) {
+        hookedObj.tmp_successCallback({
+          coords: {
+            latitude: hookedObj.genLat,
+            longitude: hookedObj.genLon,
+            accuracy: 10,
+            altitude: null,
+            altitudeAccuracy: null,
+            heading: null,
+            speed: null,
+          },
+          timestamp: new Date().getTime(),
+        });
+      } else {
+        hookedObj.getCurrentPosition(hookedObj.tmp_successCallback, hookedObj.tmp_errorCallback, hookedObj.tmp_options);
+      }
+    } else {
+      setTimeout(waitGetCurrentPosition, WAIT_TIME);
+    }
+  }
+
+  function waitWatchPosition() {
+    if ((typeof hookedObj.fakeGeo !== 'undefined')) {
+      if (hookedObj.fakeGeo === true) {
+        navigator.getCurrentPosition(hookedObj.tmp2_successCallback, hookedObj.tmp2_errorCallback, hookedObj.tmp2_options);
+        return Math.floor(Math.random() * 10000); // random id
+      } else {
+        hookedObj.watchPosition(hookedObj.tmp2_successCallback, hookedObj.tmp2_errorCallback, hookedObj.tmp2_options);
+      }
+    } else {
+      setTimeout(waitWatchPosition, WAIT_TIME);
+    }
+  }
+
+  Object.getPrototypeOf(navigator.geolocation).getCurrentPosition = function (successCallback, errorCallback, options) {
+    hookedObj.tmp_successCallback = successCallback;
+    hookedObj.tmp_errorCallback = errorCallback;
+    hookedObj.tmp_options = options;
+    waitGetCurrentPosition();
+  };
+  Object.getPrototypeOf(navigator.geolocation).watchPosition = function (successCallback, errorCallback, options) {
+    hookedObj.tmp2_successCallback = successCallback;
+    hookedObj.tmp2_errorCallback = errorCallback;
+    hookedObj.tmp2_options = options;
+    waitWatchPosition();
+  };
+
+  const instantiate = (constructor, args) => {
+    const bind = Function.bind;
+    const unbind = bind.bind(bind);
+    return new (unbind(constructor, null).apply(null, args));
+  }
+
+  Blob = function (_Blob) {
+    function secureBlob(...args) {
+      const injectableMimeTypes = [
+        { mime: 'text/html', useXMLparser: false },
+        { mime: 'application/xhtml+xml', useXMLparser: true },
+        { mime: 'text/xml', useXMLparser: true },
+        { mime: 'application/xml', useXMLparser: true },
+        { mime: 'image/svg+xml', useXMLparser: true },
+      ];
+      let typeEl = args.find(arg => (typeof arg === 'object') && (typeof arg.type === 'string') && (arg.type));
+
+      if (typeof typeEl !== 'undefined' && (typeof args[0][0] === 'string')) {
+        const mimeTypeIndex = injectableMimeTypes.findIndex(mimeType => mimeType.mime.toLowerCase() === typeEl.type.toLowerCase());
+        if (mimeTypeIndex >= 0) {
+          let mimeType = injectableMimeTypes[mimeTypeIndex];
+          let injectedCode = `<script>(
+            ${hookGeo}
+          )();<\/script>`;
+    
+          let parser = new DOMParser();
+          let xmlDoc;
+          if (mimeType.useXMLparser === true) {
+            xmlDoc = parser.parseFromString(args[0].join(''), mimeType.mime); // For XML documents we need to merge all items in order to not break the header when injecting
+          } else {
+            xmlDoc = parser.parseFromString(args[0][0], mimeType.mime);
+          }
+
+          if (xmlDoc.getElementsByTagName("parsererror").length === 0) { // if no errors were found while parsing...
+            xmlDoc.documentElement.insertAdjacentHTML('afterbegin', injectedCode);
+    
+            if (mimeType.useXMLparser === true) {
+              args[0] = [new XMLSerializer().serializeToString(xmlDoc)];
+            } else {
+              args[0][0] = xmlDoc.documentElement.outerHTML;
+            }
+          }
+        }
+      }
+
+      return instantiate(_Blob, args); // arguments?
+    }
+
+    // Copy props and methods
+    let propNames = Object.getOwnPropertyNames(_Blob);
+    for (let i = 0; i < propNames.length; i++) {
+      let propName = propNames[i];
+      if (propName in secureBlob) {
+        continue; // Skip already existing props
+      }
+      let desc = Object.getOwnPropertyDescriptor(_Blob, propName);
+      Object.defineProperty(secureBlob, propName, desc);
+    }
+
+    secureBlob.prototype = _Blob.prototype;
+    return secureBlob;
+  }(Blob);
+
+  window.addEventListener('message', function (event) {
+    if (event.source !== window) {
+      return;
+    }
+    const message = event.data;
+    switch (message.method) {
+      case 'updateLocation':
+        if ((typeof message.info === 'object') && (typeof message.info.coords === 'object')) {
+          hookedObj.genLat = message.info.coords.lat;
+          hookedObj.genLon = message.info.coords.lon;
+          hookedObj.fakeGeo = message.info.fakeIt;
+        }
+        break;
+      default:
+        break;
+    }
+  }, false);
+  //]]>
+}hookGeo();})()</script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+    <title>Minimal theme | Minimal is a theme for GitHub Pages.</title>
+    <meta name="generator" content="Jekyll v3.9.0">
+    <meta property="og:title" content="Minimal theme">
+    <meta property="og:locale" content="en_US">
+    <meta name="description" content="Minimal is a theme for GitHub Pages.">
+    <meta property="og:description" content="Minimal is a theme for GitHub Pages.">
+    <link rel="canonical" href="https://pages-themes.github.io/minimal/">
+    <meta property="og:url" content="https://pages-themes.github.io/minimal/">
+    <meta property="og:site_name" content="Minimal theme">
+    <script type="application/ld+json">
+{"@type":"WebSite","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://pages-themes.github.io/minimal/assets/img/logo.png"}},"headline":"Minimal theme","url":"https://pages-themes.github.io/minimal/","description":"Minimal is a theme for GitHub Pages.","name":"Minimal theme","@context":"https://schema.org"}</script>
+    <!-- End Jekyll SEO tag -->
+    <link rel="stylesheet" href="./Minimal%20theme%20_%20Minimal%20is%20a%20theme%20for%20GitHub%20Pages_files/style.css">
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Giulia Lissoni<br>
+        </h1>
+        <img src="../img/about.jpg" alt="Logo" style="width: 283px; height: 347px;">
+        <p>(Refuge Albert 1er, 2019).</p>
+        <p class="view"><b><span style="color: #777777;">Welcome to my page!</span></b></p>
+        <p class="view"><span style="color: #777777;"> (Last update: February
+            2021)<br>
+          </span></p>
+      </header>
+      <section>
+        <p><br>
+        </p>
+        <h3 id="header-3">Contact</h3>
+        <p><b>Email:</b></p>
+        <p>giulia.lissoni [at] mines-paristech [dot] fr<br>
+          lissonigiulia [at] yahoo [dot] it</p>
+        <p><b>Adress</b>:</p>
+        <p>CEMEF, Mines Paristech<br>
+          1 rue Claude Daunesse,<br>
+          Sophia Antipolis, 06904</p>
+        <br>
+        I am currently a Post-doc in <a href="https://www.cemef.minesparis.psl.eu/"
+          target="_blank">CEMEF</a> (École de Mines-Paristech). <br>
+        <p> Before that, I was in Laboratoire Jean-Leray (Université de Nantes),
+          as a member of the ANR project<span style="color: #222222;"> </span><u><a
+              href="https://www.math.sciences.univ-nantes.fr/MoHyCon/fr/content/Recruitments">MoHyCon</a></u>.<br>
+          I got my PhD in October 2019 at <a href="https://math.unice.fr/">Laboratoire
+            J.A. Dieudonné</a> (Université Côte d'Azur), working<span style="color: black;"></span>
+          under the supervision of <u><a href="https://www-sop.inria.fr/members/Thierry.Goudon/index.html">Thierry
+              Goudon</a></u> and <u><a href="https://math.unice.fr/%7Ekrell/index.php?page=accueil">Stella
+              Krell</a></u>.<br>
+          I was a part of the <a href="https://team.inria.fr/coffee/">Inria
+            Team COFFEE.</a></p>
+        <h2 id="header-2">About Me</h2>
+        <p> My research focuses on the analysis of Finite Volume methods for the
+          simulation of PDEs.<br>
+          In particular, during my PhD I developped <b>DDFV methods </b>for
+          the Stokes and Navier Stokes equations, focusing on the study of
+          different types of <b>boundary conditions</b> and by studying
+          non-overlapping <b>Domain Decomposition methods</b>. <br>
+          During my first post-doc, I worked on the design and <br>
+          analysis; of numerical schemes for <b>semiconductors models</b>.<br>
+          Currently, I work on <b>dynamic anisotropic mesh adaptation</b> for
+          multiphase fluid and moving structure interaction. </p>
+        <h2 id="header-2">Publications</h2>
+        <blockquote>
+          <h3><b><span style="color: #660000;"><span style="color: #94aacf;">phd
+                  thesis</span><br>
+              </span></b></h3>
+          <ul>
+            <li> <span style="font-family: Carlito; font-size: medium; "><a><b>”</b></a><b><a
+                    href="https://tel.archives-ouvertes.fr/tel-02309356">Méthode
+                    DDFV: applications en mécanique des fluides et décomposition
+                    des domaines / <br>
+                    DDFV method: applications to fluid mechanics and domain
+                    decomposition”</a></b></span></li>
+            <li><span style=" font-family: Carlito; font-size: medium; "><i><span
+                    style="color: black;">(2019)</span></i><b><br>
+                </b></span></li>
+          </ul>
+          <h3><span style="color: #94aacf;"><b>papers</b></span></h3>
+          <p></p>
+          <ul>
+            <li><span style="font-family: Carlito; font-size: medium; "><a href="https://hal.archives-ouvertes.fr/hal-01842129/document"
+                  target="_blank"><b>1. ”DDFV method for Navier-Stokes problem
+                    with outflow boundary conditions”</b> </a>, T. Goudon, S.
+                Krell, G. Lissoni<br>
+                <i> <a href="https://link.springer.com/article/10.1007/s00211-018-1014-y?wt_mc=Internal.Event.1.SEM.ArticleAuthorOnlineFirst&amp;utm_source=ArticleAuthorContributingOnlineFirst&amp;utm_medium=email&amp;utm_content=AA_en_06082018&amp;ArticleAuthorContributingOnlineFirst_20190107">Numerische
+                    Mathematik</a>, <br>
+                  <span style="color: black;">(2019)</span></i></span><span style="font-family: Carlito; font-size: medium; "><a><b><br>
+                  </b></a></span></li>
+            <li><br>
+              <span style="font-family: Carlito; font-size: medium; "></span></li>
+            <li><span style="font-family: Carlito; font-size: medium; "><a><b>2.
+                    ”</b></a><b><a href="https://hal.inria.fr/hal-02448007">Non-overlapping
+                    Schwarz algorithms for the incompressible Navier-Stokes
+                    equations with DDFV discretizations</a>”</b> <span style="color: #666666;">,
+                  T. Goudon, S. Krell, G. Lissoni</span></span><span style="font-family: Carlito; font-size: medium; "><i><a
+                    href="https://link.springer.com/article/10.1007/s00211-018-1014-y?wt_mc=Internal.Event.1.SEM.ArticleAuthorOnlineFirst&amp;utm_source=ArticleAuthorContributingOnlineFirst&amp;utm_medium=email&amp;utm_content=AA_en_06082018&amp;ArticleAuthorContributingOnlineFirst_20190107"><br>
+                    Submitted</a>,</i></span><span style="font-family: Carlito; font-size: medium; "><i><span
+                    style="color: #333333;"><span style="font-family: Carlito; font-size: medium; "><i><br>
+                        (2019)</i></span></span></i></span><b><span style="font-family: Carlito; color: black;"></span></b></li>
+            <li><b><span style=" font-family: Carlito; color: black;"><br>
+                </span></b></li>
+            <li><span style="font-family: Carlito; font-size: medium; "><a href="https://hal.archives-ouvertes.fr/hal-03080236"
+                  target="_blank"><b>3. Numerical analysis of DDFV schemes for
+                    semiconductors energy-transport”</b> </a>, M.
+                Bessemoulin-Chatard, G. Lissoni, H. Mathis<br>
+                <i> Submitted, <br>
+                  <span style="color: black;">(2020)</span></i></span><span style="font-family: Carlito; font-size: medium; "><a><b><br>
+                  </b></a></span></li>
+          </ul>
+          <ul>
+            <li>
+              <h3><span style="color: #94aacf;"><b>proceedings</b></span></h3>
+            </li>
+            <li> <span style="font-family: Carlito; font-size: medium; "><a target="_blank"
+                  href="https://hal.archives-ouvertes.fr/hal-01502397/file/Goudon_Krell_Lissoni.pdf"><b>1.
+                    ”Numerical analysis of the DDFV method for the Stokes
+                    problem with mixed Neumann/Dirichlet boundary conditions”</b></a>,
+                T. Goudon, S. Krell, G. Lissoni<br>
+                <i><span style="color: black;">Proceeding of the 8 th
+                    international symposium on Finite Volumes for Complex
+                    Applications (Lille, France),</span><br>
+                  <span style="color: black;">(2017)</span></i></span></li>
+            <span style="color: #666666;"> </span>
+            <li><span style="color: #666666;"><br>
+              </span> <span style="color: #666666;"><span style="font-family: Carlito; font-size: medium; "><a
+                    target="_blank" href="https://hal.archives-ouvertes.fr/hal-02496829/document"><b>2.
+                      ”</b></a></span></span><a target="_blank" href="https://hal.archives-ouvertes.fr/hal-02496829/document"></a><span
+                style="color: #666666;"><span style="font-family: Carlito; font-size: medium; "><a
+                    target="_blank" href="https://hal.archives-ouvertes.fr/hal-02496829/document"><b>
+                      Curved Interface Reconstruction for 2D compressible
+                      multi-material flows”</b></a>,&nbsp; Igor Chollet, Théo
+                  Corot, Laurent Dumas, Philippe Hoch, Thomas Leroy,&nbsp;
+                  Giulia Lissoni,<br>
+                  <i> <span style="color: black;">To appear in Esaim:
+                      proceedings and surveys, <br>
+                      (2019)</span></i></span></span><span style="font-family: Carlito; font-size: medium; "><span
+                  style="color: #666666;"></span></span></li>
+            <li><br>
+              <span style="font-family: Carlito; font-size: medium; "><span style="color: #666666;"></span></span></li>
+            <li><span style="font-family: Carlito; font-size: medium; "><span style="color: #666666;"><a><b>3.
+                      </b></a><b><a href="https://hal.archives-ouvertes.fr/hal-02496823/document">”Convergence
+                      study of a DDFV scheme for the Navier-Stokes equations
+                      arising in the domain decomposition setting”</a></b>, T.
+                  Goudon, S. Krell, G. Lissoni</span></span><span style="font-family: Carlito; font-size: medium; "><span
+                  style="color: black;"><i><br>
+                    To appear in </i></span></span><span style="color: black;"><span
+                  style="font-family: Carlito; font-size: medium; "><i>Proceeding
+                    of the 9 th international symposium on Finite Volumes for
+                    Complex Applications (Bergen, Norway)</i></span></span><span
+                style="font-family: Carlito; font-size: medium; "></span></li>
+            <li><br>
+              <span style="font-family: Carlito; font-size: medium; "></span></li>
+            <li><span style="font-family: Carlito; font-size: medium; "><a><b>4.
+                  </b></a><a href="https://hal.archives-ouvertes.fr/hal-02899787/document"><b>”DDFV
+                    schemes for semiconductors energy-transport models”</b></a>,
+                <span style="color: #666666;">G. Lissoni</span></span><span style="font-family: Carlito; font-size: medium; "><span
+                  style="color: black;"><i><br>
+                    To appear in</i></span></span><span style="color: black;"><span
+                  style="font-family: Carlito; font-size: medium; "> <i>Proceeding
+                    of </i></span></span><span style="font-family: Carlito; font-size: medium; "><span
+                  style="color: black;"><i><span style="font-family: Carlito; font-size: medium; "><i>the
+                        21th </i></span>ALGORITMY Conference on Scientific
+                    Computing (Podbanske, Slovakia)</i></span><br>
+              </span></li>
+          </ul>
+        </blockquote>
+        <h3 id="header-3">Header 3</h3>
+        <div class="language-js highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="c1">// Javascript code with syntax highlighting.</span>
+<span class="kd">var</span> <span class="nx">fun</span> <span class="o">=</span> <span
+class="kd">function</span> <span class="nx">lang</span><span class="p">(</span><span
+class="nx">l</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">dateformat</span><span class="p">.</span><span class="nx">i18n</span> <span
+class="o">=</span> <span class="nx">require</span><span class="p">(</span><span
+class="dl">'</span><span class="s1">./lang/</span><span class="dl">'</span> <span
+class="o">+</span> <span class="nx">l</span><span class="p">)</span>
+  <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+        </div>
+        <div class="language-ruby highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code><span class="c1"># Ruby code with syntax highlighting</span>
+<span class="no">GitHubPages</span><span class="o">::</span><span class="no">Dependencies</span><span
+class="p">.</span><span class="nf">gems</span><span class="p">.</span><span class="nf">each</span> <span
+class="k">do</span> <span class="o">|</span><span class="n">gem</span><span class="p">,</span> <span
+class="n">version</span><span class="o">|</span>
+  <span class="n">s</span><span class="p">.</span><span class="nf">add_dependency</span><span
+class="p">(</span><span class="n">gem</span><span class="p">,</span> <span class="s2">"= </span><span
+class="si">#{</span><span class="n">version</span><span class="si">}</span><span
+class="s2">"</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div>
+        </div>
+        <h4 id="header-4">Header 4</h4>
+        <ul>
+          <li>This is an unordered list following a header.</li>
+          <li>This is an unordered list following a header.</li>
+          <li>This is an unordered list following a header.</li>
+        </ul>
+        <h5 id="header-5">Header 5</h5>
+        <ol>
+          <li>This is an ordered list following a header.</li>
+          <li>This is an ordered list following a header.</li>
+          <li>This is an ordered list following a header.</li>
+        </ol>
+        <h6 id="header-6">Header 6</h6>
+        <table>
+          <thead>
+            <tr>
+              <th style="text-align: left">head1</th>
+              <th style="text-align: left">head two</th>
+              <th style="text-align: left">three</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="text-align: left">ok</td>
+              <td style="text-align: left">good swedish fish</td>
+              <td style="text-align: left">nice</td>
+            </tr>
+            <tr>
+              <td style="text-align: left">out of stock</td>
+              <td style="text-align: left">good and plenty</td>
+              <td style="text-align: left">nice</td>
+            </tr>
+            <tr>
+              <td style="text-align: left">ok</td>
+              <td style="text-align: left">good <code class="language-plaintext highlighter-rouge">oreos</code></td>
+              <td style="text-align: left">hmm</td>
+            </tr>
+            <tr>
+              <td style="text-align: left">ok</td>
+              <td style="text-align: left">good <code class="language-plaintext highlighter-rouge">zoute</code>
+                drop</td>
+              <td style="text-align: left">yumm</td>
+            </tr>
+          </tbody>
+        </table>
+        <h3 id="theres-a-horizontal-rule-below-this">There’s a horizontal rule
+          below this.</h3>
+        <hr>
+        <h3 id="here-is-an-unordered-list">Here is an unordered list:</h3>
+        <ul>
+          <li>Item foo</li>
+          <li>Item bar</li>
+          <li>Item baz</li>
+          <li>Item zip</li>
+        </ul>
+        <h3 id="and-an-ordered-list">And an ordered list:</h3>
+        <ol>
+          <li>Item one</li>
+          <li>Item two</li>
+          <li>Item three</li>
+          <li>Item four</li>
+        </ol>
+        <h3 id="and-a-nested-list">And a nested list:</h3>
+        <ul>
+          <li>level 1 item
+            <ul>
+              <li>level 2 item</li>
+              <li>level 2 item
+                <ul>
+                  <li>level 3 item</li>
+                  <li>level 3 item</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>level 1 item
+            <ul>
+              <li>level 2 item</li>
+              <li>level 2 item</li>
+              <li>level 2 item</li>
+            </ul>
+          </li>
+          <li>level 1 item
+            <ul>
+              <li>level 2 item</li>
+              <li>level 2 item</li>
+            </ul>
+          </li>
+          <li>level 1 item</li>
+        </ul>
+        <h3 id="small-image">Small image</h3>
+        <p><img src="./Minimal%20theme%20_%20Minimal%20is%20a%20theme%20for%20GitHub%20Pages_files/octocat.png"
+            alt="Octocat"></p>
+        <h3 id="large-image">Large image</h3>
+        <p><img src="./Minimal%20theme%20_%20Minimal%20is%20a%20theme%20for%20GitHub%20Pages_files/branching.png"
+            alt="Branching"></p>
+        <h3 id="definition-lists-can-be-used-with-html-syntax">Definition lists
+          can be used with HTML syntax.</h3>
+        <dl>
+          <dt>Name</dt>
+          <dd>Godzilla</dd>
+          <dt>Born</dt>
+          <dd>1952</dd>
+          <dt>Birthplace</dt>
+          <dd>Japan</dd>
+          <dt>Color</dt>
+          <dd>Green</dd>
+        </dl>
+        <div class="language-plaintext highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code>Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
+</code></pre></div>
+        </div>
+        <div class="language-plaintext highlighter-rouge">
+          <div class="highlight">
+            <pre class="highlight"><code>The final element.
+</code></pre></div>
+        </div>
+      </section>
+      <footer>
+        <p><br>
+        </p>
+        <p><small>Hosted on GitHub Pages.<br>
+          </small></p>
+      </footer>
+    </div>
+    <script src="./Minimal%20theme%20_%20Minimal%20is%20a%20theme%20for%20GitHub%20Pages_files/scale.fix.js"></script>
+  </body>
+</html>
